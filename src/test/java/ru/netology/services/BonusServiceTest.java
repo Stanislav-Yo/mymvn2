@@ -1,22 +1,25 @@
 package ru.netology.services;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BonusServiceTest {
+class FreelancerServiceTest {
 
-    @ParameterizedTest
-   // @CsvSource({
-            //Месяц 1. Денег 0. Придётся работать. Заработал +10000, потратил -3000
-      //      "10_000,3_000"
-    //})
-    @CsvFileSource(files="src/test/resources/bonus.csv" )
-    public void testNumberOfMonthsOfRest(int income, int expenses) {
+    @Test
+    public void shouldCalculateThreeVacationMonths() {
         BonusService service = new BonusService();
+        int expected = 3;
+        int result = service.calculateVacationMonths(10000, 3000, 20000);
 
-        Assertions.assertEquals(income, expenses);
+        assertEquals(expected, result);
     }
 
+    @Test
+    public void shouldCalculateTwoVacationMonths() {
+        BonusService service = new BonusService();
+        int expected = 2;
+        int result = service.calculateVacationMonths(100000, 60000, 150000);
+
+        assertEquals(expected, result);
+    }
 }

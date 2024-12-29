@@ -1,19 +1,24 @@
 package ru.netology.services;
 
 public class BonusService {
+    public int calculateVacationMonths(int income, int expenses, int threshold) {
+        // Начальное состояние: нет денег
+        int balance = 0;
+        int vacationMonths = 0;
 
-    public int calculate(int income, int expenses) {
-        int count = 0; // счётчик месяцев отдыха
-        int money = 0; // количество денег на счету
-        //int threshold = 20_000; //порог денег для отдыха
-        for (int month = 0; month < 12; month++) {
-            if (money >= expenses) { // можем ли отдыхать?
-                count++; // увеличиваем счётчик месяцев отдыха
-                money = money - expenses;
+        for (int month = 1; month <= 12; month++) {
+            if (balance >= threshold) {
+                // Отдыхаем, уменьшаем баланс на расходы и и остаток делим на 3
+                balance = balance - expenses;
+                balance = balance / 3;
+                vacationMonths++;
             } else {
-                money = money + income;
+                // Работаем, добавляем доход и вычитаем расходы
+                balance = balance + income;
+                balance = balance - expenses;
             }
         }
-        return count;
+
+        return vacationMonths;
     }
 }
